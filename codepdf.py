@@ -8,22 +8,27 @@ pip install baidu-aip
 
 2、直接运行
 
+3、打包命令
+pyinstaller -F -w usekt.py
+
 """
 import os
 import fitz
 from tkinter import *
-#OCR部分
+# OCR部分
 from aip import AipOcr
-def ocrcat(a):
-    result=''
-    APPID='21876639'
-    APIKEY='iqjr21CFPRXhBtWtul5EjMKQ'
-    SECRETKEY='ZNYl7ZxXFMl4XyWu4LIse6i7EyGAnBB0'
-    c=AipOcr(APPID,APIKEY,SECRETKEY)
-    img=open(a,'rb').read()
-    message=c.basicGeneral(img)
+
+
+def ocrcat(a, writeType='w+'):
+    result = ''
+    APPID = '21876639'
+    APIKEY = 'iqjr21CFPRXhBtWtul5EjMKQ'
+    SECRETKEY = 'ZNYl7ZxXFMl4XyWu4LIse6i7EyGAnBB0'
+    c = AipOcr(APPID, APIKEY, SECRETKEY)
+    img = open(a, 'rb').read()
+    message = c.basicGeneral(img)
     file = a.split('.')[0]
-    fo = open(file + ".txt", "w+")
+    fo = open(file + ".txt", writeType)
     for item in message.get('words_result'):
         fo.write(item['words'])
         fo.write('\n')
@@ -31,30 +36,33 @@ def ocrcat(a):
 
     fo.close()
 
-#拆图片部分
+
+# 拆图片部分
 
 pdf_dir = []
 
-doc_count=0
-doc_current=0
+doc_count = 0
+doc_current = 0
+
+
 def get_file():
     docunames = os.listdir()
     for docuname in docunames:
         if os.path.splitext(docuname)[1] == '.pdf':  # 目录下包含.pdf的文件
             pdf_dir.append(docuname)
 
+
 def get_file(pdfname):
     pdf_dir.append(pdfname)
 
 
-
-def conver_img():
+def conver_img(writeType='w+'):
     for pdf in pdf_dir:
         doc = fitz.open(pdf)
 
         pdf_name = os.path.splitext(pdf)[0]
-        index=0
-        doc_count=doc.pageCount
+        index = 0
+        doc_count = doc.pageCount
         for pg in range(doc.pageCount):
             page = doc[pg]
             rotate = int(0)
@@ -63,16 +71,24 @@ def conver_img():
             zoom_y = 2.0
             trans = fitz.Matrix(zoom_x, zoom_y).preRotate(rotate)
             pm = page.getPixmap(matrix=trans, alpha=False)
-            pm.writePNG('%s%s.png' % (pdf_name,index))
-            ocrcat('%s%s.png' % (pdf_name,index))
-            path = '%s%s.png' % (pdf_name,index)  # 文件路径
-            # print(path)
-           # if os.path.exists(path):  # 如果文件存在
-                # 删除文件，可使用以下两种方法。
-            os.remove(path)
-            index+=1
-            doc_current=index
+            if writeType == 'w+':
+                pm.writePNG('%s%s.png' % (pdf_name, index))
+                ocrcat('%s%s.png' % (pdf_name, index), writeType)
+                path = '%s%s.png' % (pdf_name, index)  # 文件路径
+                os.remove(path)
+            else:
+                pm.writePNG('%s.png' % (pdf_name))
+                ocrcat('%s.png' % (pdf_name), writeType)
+                path = '%s.png' % (pdf_name)  # 文件路径
+                os.remove(path)
+            index += 1
+            doc_current = index
 
+    # print(path)
+
+
+# if os.path.exists(path):  # 如果文件存在
+# 删除文件，可使用以下两种方法。
 
 
 if __name__ == '__main__':
