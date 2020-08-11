@@ -1,0 +1,4 @@
+build/
+dist/
+usekt.spec
+__pycache__/
