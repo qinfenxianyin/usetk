@@ -18,6 +18,7 @@ def selectPath():
 root = Tk()
 path = StringVar()
 root.title("PDF读取工具_v1.1")
+root.geometry('360x160+10+10')
 
 Label(root, text="目标路径:").grid(row=0, column=0)
 Entry(root, textvariable=path).grid(row=0, column=1)
