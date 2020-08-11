@@ -14,7 +14,7 @@ pyinstaller -F -w usekt.py
 """
 import os
 import fitz
-from tkinter import *
+# from tkinter import *
 # OCR部分
 from aip import AipOcr
 
