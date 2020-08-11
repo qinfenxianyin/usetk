@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bfa55f57-c680-40ba-9b33-9d9e787b1293" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/chainlp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codepdf.py" beforeDir="false" afterPath="$PROJECT_DIR$/codepdf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/usekt.py" beforeDir="false" afterPath="$PROJECT_DIR$/usekt.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +19,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/usekt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="128">
+              <caret line="24" column="12" lean-forward="true" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="37" />
               <folding>
                 <element signature="e#43#64#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/tkinter/filedialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="425" column="16" selection-start-line="425" selection-start-column="4" selection-end-line="425" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -38,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/codepdf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" selection-start-line="4" selection-end-line="12" />
+            <state relative-caret-position="133">
+              <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="26" />
               <folding>
                 <element signature="e#126#135#0" expanded="true" />
               </folding>
@@ -47,7 +59,31 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chainlp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+              <folding>
+                <element signature="e#24#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ask</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,6 +92,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/codepdf.py" />
+        <option value="$PROJECT_DIR$/chainlp.py" />
         <option value="$PROJECT_DIR$/usekt.py" />
       </list>
     </option>
@@ -76,16 +113,6 @@
             <path>
               <item name="usetk" type="b2602c69:ProjectViewProjectNode" />
               <item name="usetk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="usetk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="usetk" type="462c0819:PsiDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="usetk" type="b2602c69:ProjectViewProjectNode" />
-              <item name="usetk" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="usetk" type="b2602c69:ProjectViewProjectNode" />
@@ -131,7 +158,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Administrator\Documents\git\studypython\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Administrator\AppData\Local\Programs\Python\Python37\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -163,7 +190,7 @@
       <option name="presentableId" value="Default" />
       <updated>1597040169124</updated>
       <workItem from="1597040187336" duration="9059000" />
-      <workItem from="1597113940745" duration="1936000" />
+      <workItem from="1597113940745" duration="16801000" />
     </task>
     <task id="LOCAL-00001" summary="忽略两个目录">
       <created>1597052541055</created>
@@ -176,7 +203,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10995000" />
+    <option name="totallyTimeSpent" value="25860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -223,20 +250,37 @@
     <entry file="file://$PROJECT_DIR$/build/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/tkinter/filedialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="425" column="16" selection-start-line="425" selection-start-column="4" selection-end-line="425" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/codepdf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="12" />
+        <state relative-caret-position="133">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="26" />
           <folding>
             <element signature="e#126#135#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chainlp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+          <folding>
+            <element signature="e#24#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/usekt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="128">
+          <caret line="24" column="12" lean-forward="true" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="37" />
           <folding>
             <element signature="e#43#64#0" expanded="true" />
           </folding>

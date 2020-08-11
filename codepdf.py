@@ -84,6 +84,26 @@ def conver_img(writeType='w+'):
             index += 1
             doc_current = index
 
+def conver_img_only(writeType='w+'):
+    for pdf in pdf_dir:
+        doc = fitz.open(pdf)
+
+        pdf_name = os.path.splitext(pdf)[0]
+        index = 0
+        doc_count = doc.pageCount
+        for pg in range(doc.pageCount):
+            page = doc[pg]
+            rotate = int(0)
+            # 每个尺寸的缩放系数为2，这将为我们生成分辨率提高四倍的图像。
+            zoom_x = 2.0
+            zoom_y = 2.0
+            trans = fitz.Matrix(zoom_x, zoom_y).preRotate(rotate)
+            pm = page.getPixmap(matrix=trans, alpha=False)
+            if writeType == 'w+':
+                pm.writePNG('%s%s.png' % (pdf_name, index))
+            index += 1
+            doc_current = index
+
     # print(path)
 
 
