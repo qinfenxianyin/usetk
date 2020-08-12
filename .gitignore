@@ -3,3 +3,4 @@ dist/
 usekt.spec
 __pycache__/
 .idea/
+.idea/workspace.xml
