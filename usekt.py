@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from tkinter import *
-from os import walk
+# from os import walk
 
 from tkinter import ttk
 # from tkinter.filedialog import askdirectory
@@ -91,25 +91,29 @@ def selectPath2():
     path2_ = askdirectory()
     path2.set(path2_)
 
-def callBack2(p):
+CheckVar3 = IntVar()
+Checkbutton(root, text="图片是否压缩", variable=CheckVar3, onvalue=1, offvalue=0).grid(row=6, column=0)
+
+def callBack2(p,usezip):
     if None==p or len(p)<=0:
         showinfo(title='消息', message='请选择路径！')
         return
     result_set = ch.getFolderName(p)
-    # print(result_set)
     result_list = list(result_set)
     result_list.sort()
     # print(result_list)
     for dir in result_list:
-        ch.pic2pdf(dir)
+        ch.pic2pdf(dir,usezip)
     print('处理完毕')
     reply()
+
+
 
 Label(root, text="目标文件夹或目录:").grid(row=5, column=0)
 Entry(root, textvariable=path2,width=30).grid(row=5, column=1)
 Button(root, text="路径选择", command=selectPath2).grid(row=5, column=2)
 
-Button(root, text="开始转换",fg="blue", command=lambda: callBack2(p=path2.get())).grid(row=6, column=2)
+Button(root, text="开始转换",fg="blue", command=lambda: callBack2(p=path2.get(),usezip=CheckVar3.get())).grid(row=6, column=2)
 #######
 #水平分割线
 sh = ttk.Separator(root, orient=HORIZONTAL)

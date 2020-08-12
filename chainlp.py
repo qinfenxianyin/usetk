@@ -4,7 +4,7 @@ import fitz
 import os
 import traceback
 from win32com.client import Dispatch
-
+import compressimg as ci
 
 def getFolderName(path):
     reset = set()
@@ -36,22 +36,37 @@ def getOutputDirName(path,source_folder):
     return source_folder + dirname if source_folder.endswith("\\") else source_folder + "\\" + dirname
 
 
-def pic2pdf(source_folder):  # "D:\\火影漫画全集\\1~40 卷\\第03卷"
+def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03卷"
+    source_folderbak=source_folder
+    if usezip == 1 and not os.path.exists(source_folder+'/out'):
+        os.mkdir(source_folder+'/out',0o777)
     doc = fitz.open()
     try:
         # print(source_folder)
         name = getOutputDirName(source_folder,source_folder)
         if os.path.exists(name):
             return
-        source_folder = source_folder + "*" if source_folder.endswith("\\") else source_folder + "\\*"
+        source_folder = source_folder + "*" if source_folder.endswith("\\") else source_folder + "/*"
+        # print('source_folder_list ', list(glob.glob(source_folder)))
         for img in sorted(glob.glob(source_folder)):  # 读取图片，确保按文件名排序
-            print(img)
-            imgdoc = fitz.open(img)  # 打开图片
+            if img.endswith('out'):
+                continue
+            imgzip=img
+            if usezip==1:
+                res=ci.compress_image(img)
+                imgzip=res[0]
+                if imgzip.endswith('png'):
+                    imgzip=ci.PNG_JPG(imgzip)
+                    res = ci.compress_image2(imgzip)
+                    imgzip = res[0]
+                # print('usezip ', imgzip,'len ',res[1])
+            imgdoc = fitz.open(imgzip)  # 打开图片
             pdfbytes = imgdoc.convertToPDF()  # 使用图片创建单页的 PDF
             imgpdf = fitz.open("pdf", pdfbytes)
             doc.insertPDF(imgpdf)  # 将当前页插入文档
         print("out put name is %s" % name)
         doc.save(name)  # 保存pdf文件
+        os.remove(source_folderbak+'/out')
     except:
         print("目录：[ %s ] 转换pdf异常" % source_folder)
         traceback.print_exc()
