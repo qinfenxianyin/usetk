@@ -5,6 +5,8 @@
 1、安装库
 pip install pymupdf
 pip install baidu-aip
+pip install pyinstaller
+pip install pypiwin32  #dco2pdf
 
 2、直接运行
 

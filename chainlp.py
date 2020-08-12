@@ -64,10 +64,11 @@ def doc2pdf(doc_name, pdf_name):
     print(pdf_name)
     try:
         try:
-            word = Dispatch("Word.Application")
+            # word = Dispatch("Word.Application")
+            word = Dispatch("Kwps.Application")  #wps 支持msoffice
         except:
             print('use wps')
-            word = Dispatch("wps pplication")
+            word = Dispatch("Wps.Application")
         if os.path.exists(pdf_name):
             os.remove(pdf_name)
         worddoc = word.Documents.Open(doc_name, ReadOnly=1)
