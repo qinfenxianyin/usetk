@@ -16,3 +16,7 @@ OCR工具(支持pdf,png,jpg)_v1.2
 3.新增功能doc和docx转换为pdf
 4.合理布局，阻止用户调整大小
 5.修改工具名字
+
+OCR工具(支持pdf,png,jpg)_v1.2.1
+--更新日期2020.8.12
+1.修复bug，原来仅支持msoffice，现在已支持wps格式
