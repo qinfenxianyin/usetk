@@ -5,11 +5,11 @@ import time
 
 # 创建主窗口
 window = tk.Tk()
-window.title('进度条')
+window.title('进度')
 window.geometry('630x150')
 
 # 设置下载进度条
-tk.Label(window, text='下载进度:', ).place(x=50, y=60)
+label = tk.Label(window, text='执行进度:', ).place(x=50, y=60)
 canvas = tk.Canvas(window, width=465, height=22, bg="white")
 canvas.place(x=110, y=60)
 
@@ -40,6 +40,21 @@ def progress():
 
 
 btn_download = tk.Button(window, text='启动进度条', command=progress)
-btn_download.place(x=400, y=105)
+# btn_download.place(x=400, y=105)
+btn_download.pack_forget()
 
-window.mainloop()
+
+def execure():
+    btn_download.invoke()
+    window.mainloop()
+
+
+def quit():
+    window.destroy()
+
+
+#    progress()
+
+
+if __name__ == '__main__':
+    execure()
