@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+# 图片合并PDF模块
 import glob
 import fitz
 import os
 import traceback
 from win32com.client import Dispatch
 import compressimg as ci
+from tkinter.messagebox import showinfo
 
 def getFolderName(path):
     reset = set()
@@ -45,10 +47,16 @@ def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03�
         # print(source_folder)
         name = getOutputDirName(source_folder,source_folder)
         if os.path.exists(name):
+            showinfo(title='消息', message='文输出失败，文件已存在')
+            os.removedirs(source_folderbak + '/out')
             return
         source_folder = source_folder + "*" if source_folder.endswith("\\") else source_folder + "/*"
         # print('source_folder_list ', list(glob.glob(source_folder)))
+        count_total=sum([len(files) for root,dirs,files in os.walk(source_folderbak)])
+        index=0
         for img in sorted(glob.glob(source_folder)):  # 读取图片，确保按文件名排序
+            print('%.2f %%' % ((index/count_total)*100))
+            index+=1
             if img.endswith('out'):
                 continue
             imgzip=img
@@ -66,7 +74,9 @@ def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03�
             doc.insertPDF(imgpdf)  # 将当前页插入文档
         print("out put name is %s" % name)
         doc.save(name)  # 保存pdf文件
-        os.remove(source_folderbak+'/out')
+        for xfile in os.listdir(source_folderbak+'/out'):
+            os.remove(source_folderbak+'/out/'+xfile)
+        os.removedirs(source_folderbak+'/out')
     except:
         print("目录：[ %s ] 转换pdf异常" % source_folder)
         traceback.print_exc()

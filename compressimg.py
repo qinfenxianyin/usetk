@@ -113,21 +113,30 @@ import os
 
 def PNG_JPG(PngPath):
     img = cv.imdecode(np.fromfile(PngPath,dtype=np.uint8),-1)
+    #因为cv.imread(PngPath, 0) 返回两个值 ，imdecode 返回3个值，所以有问题
     wh = img.shape[::-1]
+    # print(type(img.shape))
+    # print(img.shape)
+    # print(img.shape[::-1])
     infile = PngPath
     outfile = os.path.splitext(infile)[0] + ".jpg"
     img = Image.open(infile)
-    img = img.resize((int(wh[0] / 2), int(wh[1] / 2)), Image.ANTIALIAS)
+    # print(int(wh[1] / 2), int(wh[2] / 2))
+    # img.show()
+    img = img.resize((int(wh[1] / 2), int(wh[2] / 2)), Image.ANTIALIAS)
     try:
+        # print('len(img.split())',img.split())
         if len(img.split()) == 4:
             # prevent IOError: cannot write mode RGBA as BMP
             r, g, b, a = img.split()
             img = Image.merge("RGB", (r, g, b))
             img.convert('RGB').save(outfile, quality=70)
-            os.remove(PngPath)
+            os.remove(infile)
         else:
+            r, g, b = img.split()
+            img = Image.merge("RGB", (r, g, b))
             img.convert('RGB').save(outfile, quality=70)
-            os.remove(PngPath)
+            os.remove(infile)
         return outfile
     except Exception as e:
         print("PNG转换JPG 错误", e)
@@ -135,4 +144,5 @@ def PNG_JPG(PngPath):
 if __name__ == '__main__':
     # compress_image(r'C:\Users\Administrator\Pictures\席文楷图片\马廷军.jpg')
     # resize_image(r'D:\learn\space.jpg')
-    PNG_JPG(r"C:\Users\Administrator\Desktop\快捷方式\电子书\《杨显惠命运三部曲（套装共3本）（夹边沟记事_定西孤儿院_甘南纪事）》 - 杨显惠\newfold\out\《杨显惠命运三部曲（套装共3本）（夹边沟记事_定西孤儿院_甘南纪事）》 - 杨显惠0-out.png")
+    # PNG_JPG(r"C:\Users\Administrator\Desktop\快捷方式\电子书\《杨显惠命运三部曲（套装共3本）（夹边沟记事_定西孤儿院_甘南纪事）》 - 杨显惠\newfold\out\《杨显惠命运三部曲（套装共3本）（夹边沟记事_定西孤儿院_甘南纪事）》 - 杨显惠0-out.png")
+    PNG_JPG(r"C:\Users\Administrator\Desktop\快捷方式\111.png")
