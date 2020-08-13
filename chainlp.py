@@ -2,7 +2,7 @@
 # 图片合并PDF模块
 import glob
 import fitz
-import os
+import os,shutil
 import traceback
 from win32com.client import Dispatch
 import compressimg as ci
@@ -38,7 +38,7 @@ def getOutputDirName(path,source_folder):
     return source_folder + dirname if source_folder.endswith("\\") else source_folder + "\\" + dirname
 
 
-def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03卷"
+def pic2pdf(source_folder,usezip,zipkb):  # "D:\\火影漫画全集\\1~40 卷\\第03卷"
     source_folderbak=source_folder
     if usezip == 1 and not os.path.exists(source_folder+'/out'):
         os.mkdir(source_folder+'/out',0o777)
@@ -61,11 +61,14 @@ def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03�
                 continue
             imgzip=img
             if usezip==1:
-                res=ci.compress_image(img)
-                imgzip=res[0]
-                if imgzip.endswith('png'):
+                if not imgzip.endswith('png'):
+                    res=ci.compress_image(img,mb=zipkb)
+                    imgzip=res[0]
+                elif imgzip.endswith('png'):
+                    imgzip=ci.get_outfile(img,'')
+                    shutil.copyfile(img, imgzip)
                     imgzip=ci.PNG_JPG(imgzip)
-                    res = ci.compress_image2(imgzip)
+                    res = ci.compress_image2(imgzip,mb=zipkb)
                     imgzip = res[0]
                 # print('usezip ', imgzip,'len ',res[1])
             imgdoc = fitz.open(imgzip)  # 打开图片
@@ -74,9 +77,10 @@ def pic2pdf(source_folder,usezip):  # "D:\\火影漫画全集\\1~40 卷\\第03�
             doc.insertPDF(imgpdf)  # 将当前页插入文档
         print("out put name is %s" % name)
         doc.save(name)  # 保存pdf文件
-        for xfile in os.listdir(source_folderbak+'/out'):
-            os.remove(source_folderbak+'/out/'+xfile)
-        os.removedirs(source_folderbak+'/out')
+        if usezip == 1:
+            for xfile in os.listdir(source_folderbak+'/out'):
+                os.remove(source_folderbak+'/out/'+xfile)
+            os.removedirs(source_folderbak+'/out')
     except:
         print("目录：[ %s ] 转换pdf异常" % source_folder)
         traceback.print_exc()

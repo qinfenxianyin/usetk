@@ -16,8 +16,8 @@ def get_size(file):
 def get_outfile(infile, outfile):
     if outfile:
         return outfile
-    dir, suffix = os.path.splitext(infile)
-    outfile = '{}-out{}'.format(dir, suffix)
+    # dir, suffix = os.path.splitext(infile)
+    # outfile = '{}-out{}'.format(dir, suffix)
     filetup = os.path.split(infile)
     outfile = filetup[0] + '/out/' + filetup[1]
     return outfile
@@ -123,19 +123,21 @@ def PNG_JPG(PngPath):
     img = Image.open(infile)
     # print(int(wh[1] / 2), int(wh[2] / 2))
     # img.show()
-    img = img.resize((int(wh[1] / 2), int(wh[2] / 2)), Image.ANTIALIAS)
+    # img = img.resize((int(wh[1] / 2), int(wh[2] / 2)), Image.ANTIALIAS)
+    #不调整大小
+    img = img.resize((int(wh[1] ), int(wh[2] )), Image.ANTIALIAS)
     try:
         # print('len(img.split())',img.split())
         if len(img.split()) == 4:
             # prevent IOError: cannot write mode RGBA as BMP
             r, g, b, a = img.split()
             img = Image.merge("RGB", (r, g, b))
-            img.convert('RGB').save(outfile, quality=70)
+            img.convert('RGB').save(outfile, quality=100)
             os.remove(infile)
         else:
             r, g, b = img.split()
             img = Image.merge("RGB", (r, g, b))
-            img.convert('RGB').save(outfile, quality=70)
+            img.convert('RGB').save(outfile, quality=100)
             os.remove(infile)
         return outfile
     except Exception as e:

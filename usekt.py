@@ -69,13 +69,15 @@ Entry(root, textvariable=path,width=30).grid(row=1, column=1)
 Button(root, text="路径选择", command=selectPath).grid(row=1, column=2)
 
 CheckVar1 = IntVar()
-Checkbutton(root, text="生成单个文本", variable=CheckVar1, onvalue=1, offvalue=0).grid(row=2, column=0)
-
-CheckVar2 = IntVar()
-Checkbutton(root, text="pdf转图片", variable=CheckVar2, onvalue=2, offvalue=0).grid(row=2, column=1)
+# Checkbutton(root, text="生成单个文本", variable=CheckVar1, onvalue=1, offvalue=0).grid(row=2, column=0)
+Radiobutton(root,text='生成多个文本',variable =CheckVar1,value = 0).grid(row=2, column=0)
+Radiobutton(root,text='生成单个文本',variable =CheckVar1,value = 1).grid(row=2, column=1,sticky=W)
+Radiobutton(root,text='pdf转图片',variable =CheckVar1,value = 2).grid(row=2, column=1,sticky=E)
+# CheckVar2 = IntVar()
+# Checkbutton(root, text="pdf转图片", variable=CheckVar2, onvalue=2, offvalue=0).grid(row=2, column=1)
 
 Label(root, text='请选择可读取的pdf或图片',justify=LEFT,compound = 'left').grid(row=0, column=0,columnspan=3,sticky=W)
-Button(root, text="开始识别",fg="blue", command=lambda: callBack(p=path.get(), checkbox1=CheckVar1.get(),checkbox2=CheckVar2.get())).grid(row=2, column=2)
+Button(root, text="开始识别",fg="blue", command=lambda: callBack(p=path.get(), checkbox1=CheckVar1.get(),checkbox2=CheckVar1.get())).grid(row=2, column=2)
 
 #水平分割线
 sh = ttk.Separator(root, orient=HORIZONTAL)
@@ -83,7 +85,7 @@ sh.grid(row=3, column=0, columnspan=3, sticky="we")
 #垂直分割线
 # sv = ttk.Separator(root, orient=VERTICAL)
 # sv.grid(row=1, column=2, rowspan=3, sticky="ns")
-Label(root, text='请选择图片目录，合并为pdf',justify=LEFT).grid(row=4, column=0,columnspan=3,sticky=W)
+Label(root, text='请选择图片目录，合并为pdf').grid(row=4, column=0,columnspan=3,sticky=W)
 
 # 选择路径回调函数
 path2 = StringVar()
@@ -91,10 +93,25 @@ def selectPath2():
     path2_ = askdirectory()
     path2.set(path2_)
 
-CheckVar3 = IntVar()
-Checkbutton(root, text="图片是否压缩", variable=CheckVar3, onvalue=1, offvalue=0).grid(row=6, column=0)
+# 传值变量 (图片压缩后大小)
+textVar = IntVar()
+textVar.set(150)
+e1 = Entry(root, textvariable=textVar,width=5)
+e2=Label(root, text='图片大小(kb)')
 
-def callBack2(p,usezip):
+def printselection(p):
+    if p % 2==1:
+        e1.grid(row=6, column=1,padx=3)
+        e2.grid(row=6, column=1,sticky=W)
+    else:
+        e1.grid_forget()
+        e2.grid_forget()
+
+
+CheckVar3 = IntVar()
+Checkbutton(root, text="图片是否压缩", variable=CheckVar3, onvalue=1, offvalue=0,command=lambda : printselection(p=CheckVar3.get())).grid(row=6, column=0)
+
+def callBack2(p,usezip,zipkb):
     if None==p or len(p)<=0:
         showinfo(title='消息', message='请选择路径！')
         return
@@ -103,7 +120,7 @@ def callBack2(p,usezip):
     result_list.sort()
     # print(result_list)
     for dir in result_list:
-        ch.pic2pdf(dir,usezip)
+        ch.pic2pdf(dir,usezip,zipkb)
     print('处理完毕')
     reply()
 
@@ -113,7 +130,7 @@ Label(root, text="目标文件夹或目录:").grid(row=5, column=0)
 Entry(root, textvariable=path2,width=30).grid(row=5, column=1)
 Button(root, text="路径选择", command=selectPath2).grid(row=5, column=2)
 
-Button(root, text="开始转换",fg="blue", command=lambda: callBack2(p=path2.get(),usezip=CheckVar3.get())).grid(row=6, column=2)
+Button(root, text="开始转换",fg="blue", command=lambda: callBack2(p=path2.get(),usezip=CheckVar3.get(),zipkb=textVar.get())).grid(row=6, column=2)
 #######
 #水平分割线
 sh = ttk.Separator(root, orient=HORIZONTAL)
