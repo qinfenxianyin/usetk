@@ -7,7 +7,9 @@ import traceback
 from win32com.client import Dispatch
 import compressimg as ci
 from tkinter.messagebox import showinfo
+import time,datetime
 
+# 递归获取所有目录名
 def getFolderName(path):
     reset = set()
     if os.path.exists(path):
@@ -48,14 +50,25 @@ def pic2pdf(source_folder,usezip,zipkb):  # "D:\\火影漫画全集\\1~40 卷\\�
         name = getOutputDirName(source_folder,source_folder)
         if os.path.exists(name):
             showinfo(title='消息', message='文输出失败，文件已存在')
-            os.removedirs(source_folderbak + '/out')
+            if os.path.exists(source_folderbak + '/out'):
+                os.removedirs(source_folderbak + '/out')
             return
         source_folder = source_folder + "*" if source_folder.endswith("\\") else source_folder + "/*"
         # print('source_folder_list ', list(glob.glob(source_folder)))
         count_total=sum([len(files) for root,dirs,files in os.walk(source_folderbak)])
         index=0
+        start = time.time()
+        # print(datetime.datetime.now())
         for img in sorted(glob.glob(source_folder)):  # 读取图片，确保按文件名排序
+            # 打印百分比
             print('%.2f %%' % ((index/count_total)*100))
+            if index==1:
+                end =  time.time()
+            # print(datetime.datetime.now())
+            #打印预期剩余实际
+            if index>0 and index<count_total:
+                totaltime_seconds=((count_total /index)*(end - start))
+                print('剩余%.4f 秒' % totaltime_seconds)
             index+=1
             if img.endswith('out'):
                 continue
@@ -93,15 +106,22 @@ def doc2pdf(doc_name, pdf_name):
     print(pdf_name)
     try:
         try:
-            # word = Dispatch("Word.Application")
-            word = Dispatch("Kwps.Application")  #wps 支持msoffice
+            try:
+                print('use word')
+                word = Dispatch("Word.Application")
+            except:
+                print('use kwps')
+                word = Dispatch("Kwps.Application")  #wps 支持msoffice
         except:
             print('use wps')
             word = Dispatch("Wps.Application")
         if os.path.exists(pdf_name):
             os.remove(pdf_name)
+        print(datetime.datetime.now())
         worddoc = word.Documents.Open(doc_name, ReadOnly=1)
+        print(datetime.datetime.now())
         worddoc.SaveAs(pdf_name, FileFormat=17)
+        print(datetime.datetime.now())
         worddoc.Close()
         return pdf_name
     except:

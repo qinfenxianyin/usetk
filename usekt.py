@@ -12,6 +12,7 @@ import codepdf as co
 import chainlp as ch
 # import threading
 from tkinter.messagebox import showinfo
+# import progressbar
 
 
 # 选择路径回调函数
@@ -119,6 +120,7 @@ def callBack2(p,usezip,zipkb):
     result_list = list(result_set)
     result_list.sort()
     # print(result_list)
+    # progressbar.GressBar().start()
     for dir in result_list:
         ch.pic2pdf(dir,usezip,zipkb)
     print('处理完毕')

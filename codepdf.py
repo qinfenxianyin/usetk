@@ -16,28 +16,33 @@ pyinstaller -F -w usekt.py
 """
 import os
 import fitz
+import datetime
+from tkinter.messagebox import showinfo
 # from tkinter import *
 # OCR部分
 from aip import AipOcr
 
 
 def ocrcat(a, writeType='w+'):
-    result = ''
-    APPID = '21876639'
-    APIKEY = 'iqjr21CFPRXhBtWtul5EjMKQ'
-    SECRETKEY = 'ZNYl7ZxXFMl4XyWu4LIse6i7EyGAnBB0'
-    c = AipOcr(APPID, APIKEY, SECRETKEY)
-    img = open(a, 'rb').read()
-    message = c.basicGeneral(img)
-    file = a.split('.')[0]
-    fo = open(file + ".txt", writeType)
-    for item in message.get('words_result'):
-        fo.write(item['words'])
-        fo.write('\n')
-        # print(item['words'])
+    try:
+        result = ''
+        APPID = '21876639'
+        APIKEY = 'iqjr21CFPRXhBtWtul5EjMKQ'
+        SECRETKEY = 'ZNYl7ZxXFMl4XyWu4LIse6i7EyGAnBB0'
+        c = AipOcr(APPID, APIKEY, SECRETKEY)
+        img = open(a, 'rb').read()
+        message = c.basicGeneral(img)
+        file = a.split('.')[0]
+        fo = open(file + ".txt", writeType,encoding='utf-8')
+        for item in message.get('words_result'):
+            fo.write(item['words'])
+            fo.write('\n')
+            # print(item['words'])
 
-    fo.close()
-
+        fo.close()
+    except:
+        showinfo(title='消息', message='出错了！请关闭重启软件！')
+        return 1
 
 # 拆图片部分
 
@@ -85,6 +90,13 @@ def conver_img(writeType='w+'):
                 os.remove(path)
             index += 1
             doc_current = index
+            print(datetime.datetime.now())
+
+def pdfPgCount(pdf):
+    doc = fitz.open(pdf)
+    pdf_name = os.path.splitext(pdf)[0]
+    index = 0
+    return doc.pageCount
 
 def conver_img_only(writeType='w+'):
     for pdf in pdf_dir:
