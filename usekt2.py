@@ -100,7 +100,7 @@ def selectPath():
 root = Tk()
 path = StringVar()
 root.title("OCR工具(支持pdf,png,jpg)_v1.2")
-root.geometry('400x260+10+10')
+root.geometry('460x260+10+10')
 root.resizable(0, 0)  # 防止用户调整尺寸
 
 

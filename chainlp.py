@@ -4,7 +4,7 @@ import glob
 import fitz
 import os,shutil
 import traceback
-from win32com.client import Dispatch
+# from win32com.client import Dispatch
 import compressimg as ci
 from tkinter.messagebox import showinfo
 import time,datetime
