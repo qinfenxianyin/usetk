@@ -69,7 +69,9 @@ def translate(text,fromLang = 'auto',toLang = 'zh'):
             httpClient.close()
 
 if __name__ == '__main__':
-    text = '新北市十二年國民基本教育資訊網'
+    text = '新北市十二年國民基本教育資訊網----------'
     #text = 'クローラ'
     print(translate(text,'cht','en'))
+
+    ocrcat('/Users/xiwenkai/1100/pdf/study/WechatIMG26.png');
 #     time.sleep(1)
