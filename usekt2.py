@@ -16,6 +16,8 @@ from tkinter.messagebox import showinfo
 import threading,time
 # import tkinter as tk2
 # 创建主窗口
+
+# pluse venv环境运行
 class barTool():
     def __init__(self,speed,event):
         super().__init__()
