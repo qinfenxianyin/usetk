@@ -33,3 +33,7 @@ OCR工具(支持pdf,png,jpg)_v1.2.3
 2.使用线程通信同步进度条
 3.未来可用flask在web端实现，增加线上翻译功能
 4.doc转pdf功能需用其他方法实现，目前很不好用
+
+pyInstaller打包 一般安装在python安装路径/Script下面
+pyinstaller -F xxx.py  打包exe命令，但是会有黑窗口
+pyinstaller -F  -w xxx.py去除黑窗口
